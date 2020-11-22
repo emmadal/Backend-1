@@ -1,7 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import User from './dbModel.js'
-import Friendships from './friendships/friendships.model.js'
+import Friendships from './models/friendship.js'
 
 const app = express()
 const port = process.env.PORT || 3000;
@@ -100,6 +100,65 @@ app.get("/api/friendships/:user",(req,res)=>{
         }
     });
 })
+
+
+// /**
+//  * NOTIFICATIONS SERVICE 
+//  */
+
+// /** FETCH ALL */
+// app.get("/api/notification",(req,res)=>{
+//     Friendships.find((err,data)=>{
+//          if(err){
+//              res.status(500).send(err);
+//          }else {
+//              res.status(201).send(data);
+//          }
+//      })
+// })
+
+// /** POST A NOTIFICATIONS */
+// app.post("/api/notification", (req,res)=>{
+//     Friendships.create({
+//         user1: req.body.user1,
+//         user2: req.body.user2,
+//         createAt: { type: Date, default: Date.now }
+//     }).then( friendships => res.json(friendships) );
+// })
+
+// /** DELETE BY user1 AND user2 */
+// app.get("/api/notification/:user1/:user2",(req,res)=>{
+//     Friendships.deleteOne({ 'user1': req.params.user1, 'user2': req.params.user2 }, (err, data) => {
+//         if(err){
+//             res.status(500).send(err);
+//         }else {
+//             res.status(201).send(data);
+//         }
+//     });
+// })
+
+// /** SEARCH BY user1 AND user2 */
+// app.get("/api/notification/:user1/:user2",(req,res)=>{
+//     Friendships.findOne({ 'user1': req.params.user1, 'user2': req.params.user2 }, (err, data) => {
+//         if(err){
+//             res.status(500).send(err);
+//         }else {
+//             res.status(201).send(data);
+//         }
+//       });
+//  })
+
+
+// /** SEARCH BY user */
+// app.get("/api/notification/:user",(req,res)=>{
+//     Friendships.find({ 'user1': req.params.user }, (err, data) => {
+//         if(err){
+//             res.status(500).send(err);
+//         }else {
+//             res.status(201).send(data);
+//         }
+//     });
+// })
 
 
 app.listen(port,()=>console.log(`Listen on localhost : ${port}`))
