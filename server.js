@@ -12,7 +12,8 @@ app.use((req,res,next)=>{
     next() 
 })
 
-const connection_url ="mongodb://localhost:27017"
+const connection_url ="mongodb+srv://wakandha:Wakandha@realmcluster.09rky.mongodb.net/wakandha?retryWrites=true&w=majority"
+
 mongoose.connect(connection_url,{
     useNewUrlParser:true,
     useCreateIndex:true,
@@ -35,6 +36,7 @@ app.get("/userfind/",(req,res)=>{
 app.post('/userInscription/',(req,res)=>{
     console.log(req.body)
          Singin(req.body)
+         res.send("oui")
 })
 
 app.listen(port,()=>console.log(`Listen on localhost : ${port}`))
