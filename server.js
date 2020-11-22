@@ -1,43 +1,34 @@
 import express from 'express'
-import mongoose from 'mongoose'
-import User from './dbModel.js'
+import bodyParser from "body-parser"
+import mongoose from "mongoose"
+import auth from './routes/auth.js'
+import users from './routes/users.js'
+import "./middleware/auth.js"
+
+const dbUrl = "mongodb+srv://Wakandha:Wakandha2020@cluster0.osxre.mongodb.net/wakandha?retryWrites=true&w=majority"
+
+mongoose.connect(dbUrl, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+})
+mongoose.connection.on('error', error => console.log(error));
+mongoose.Promise = global.Promise;
 
 const app = express()
 const port = process.env.PORT || 3000;
 
 app.use(express.json())
-app.use((req,res,next)=>{
-    res.setHeader("Access-Control-Allow-Origin",'*'),
-    res.setHeader("Access-Control-Allow-Headers","*"),
-    next() 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", '*'),
+    res.setHeader("Access-Control-Allow-Headers", "*"),
+    next()
 })
 
-const connection_url ="mongodb+srv://Wakandha:Wakandha2020@cluster0.osxre.mongodb.net/wakandha?retryWrites=true&w=majority"
+app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use("/auth", auth)
 
-mongoose.connect(connection_url,{ 
-    useNewUrlParser:true, 
-    useCreateIndex:true,
-    useUnifiedTopology:true, 
-}) 
-const Singin = async UserData =>{ 
- await User.create(UserData)
-}
-/* Pour rechercher les utilisateur qui sont dans la base de donnee */
-app.get("/userfind/",(req,res)=>{
-   User.find((err,data)=>{
-        if(err){
-            res.status(500).send(err);
-        }else {
-            res.status(201).send(data);
-        }
-    })
-})
-/*Enregistrer les nouveaux utilisateurs */
-app.post('/userInscription/',(req,res)=>{
-    console.log(req.body)
-         Singin(req.body)
-         res.send("oui")
-})
+app.use("/users", users)
 
-app.listen(port,()=>console.log(`Listen on localhost : ${port}`))
+app.listen(port, () => console.log(`Listen on http://localhost:${port}`,))
