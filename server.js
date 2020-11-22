@@ -12,14 +12,15 @@ app.use((req,res,next)=>{
     next() 
 })
 
-const connection_url ="mongodb+srv://wakandha:Wakandha@realmcluster.09rky.mongodb.net/wakandha?retryWrites=true&w=majority"
+const connection_url ="mongodb+srv://Wakandha:Wakandha2020@cluster0.osxre.mongodb.net/wakandha?retryWrites=true&w=majority"
 
-mongoose.connect(connection_url,{
-    useNewUrlParser:true,
+
+mongoose.connect(connection_url,{ 
+    useNewUrlParser:true, 
     useCreateIndex:true,
     useUnifiedTopology:true, 
-})
-const Singin = async UserData =>{
+}) 
+const Singin = async UserData =>{ 
  await User.create(UserData)
 }
 /* Pour rechercher les utilisateur qui sont dans la base de donnee */
