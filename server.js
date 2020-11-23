@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 import auth from './routes/auth.js'
 import users from './routes/users.js'
 import "./middleware/auth.js"
+import friendship from './routes/friendships.js'
 
 const dbUrl = "mongodb+srv://Wakandha:Wakandha2020@cluster0.osxre.mongodb.net/wakandha?retryWrites=true&w=majority"
 
@@ -27,8 +28,10 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use("/auth", auth)
+// app.use("/auth", auth)
 
 app.use("/users", users)
+
+app.use("/api/friendships", friendship)
 
 app.listen(port, () => console.log(`Listen on http://localhost:${port}`,))
