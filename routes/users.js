@@ -1,6 +1,6 @@
 import express from 'express'
 import passport from 'passport'
-import { handleError } from "../helpers"
+import { handleError } from "../helpers.js"
 import User from '../models/User.js'
 
 var router = express.Router()
