@@ -24,8 +24,7 @@ passport.use(
   )
 );
 
-passport.use(
-  'signup',
+passport.use('signup',
   new localStrategy(
     {
       usernameField: 'email',
@@ -43,16 +42,17 @@ passport.use(
   )
 );
 
-passport.use(
-  'login',
+passport.use('login',
   new localStrategy(
     {
-      usernameField: 'email',
+      usernameField: 'username',
       passwordField: 'password'
     },
-    async (email, password, done) => {
+    async (username, password, done) => {
       try {
-        const user = await UserModel.findOne({ email });
+        const user = await UserModel.findOne(
+          username.includes("@") ? { email: username } : { phone: "+" + username }
+        );
 
         if (!user) {
           return done(null, false, { message: 'User not found' });
@@ -66,6 +66,7 @@ passport.use(
 
         return done(null, user, { message: 'Logged in Successfully' });
       } catch (error) {
+        console.log("error", error)
         return done(error);
       }
     }

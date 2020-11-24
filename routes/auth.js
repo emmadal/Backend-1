@@ -4,8 +4,14 @@ import jwt from "jsonwebtoken"
 
 var router = express.Router()
 
-router.post(
-  '/signup',
+
+router.post('/test', (req, res, next) => {
+  return res.json({
+    message: 'Signup successful',
+  });
+});
+
+router.post('/signup',
   passport.authenticate('signup', { session: false }),
   async (req, res, next) => {
     res.json({
@@ -15,11 +21,9 @@ router.post(
   }
 );
 
-router.post(
-  '/login',
+router.post('/login',
   async (req, res, next) => {
-    passport.authenticate(
-      'login',
+    passport.authenticate('login',
       async (err, user, info) => {
         try {
           if (err || !user) {
@@ -28,16 +32,14 @@ router.post(
             return next(error);
           }
 
-          req.login(
-            user,
-            { session: false },
+          req.login(user, { session: false },
             async (error) => {
               if (error) return next(error);
 
-              const body = { _id: user._id, email: user.email };
+              const body = { _id: user._id, email: user.email, phone: user.phone };
               const token = jwt.sign({ user: body }, 'TOP_SECRET');
 
-              return res.json({ token });
+              return res.json({ id: user._id, ...user._doc, password: "", token });
             }
           );
         } catch (error) {
