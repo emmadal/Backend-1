@@ -12,7 +12,7 @@ const MessageSchema = mongoose.Schema({
       { type: String },
     ]
   },
-  replyTO: { type: mongoose.Schema.Types.ObjectId },
+  replyTO: { type: mongoose.Schema.Types.ObjectId, ref: 'Message' },
   receiver: [
     { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   ], 
