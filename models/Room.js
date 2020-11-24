@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 let Schema = mongoose.Schema;
 
 const RoomSchema = mongoose.Schema({  
-  rooms_id: { type:mongoose.Schema.Types.ObjectId, required:true },
+  name:{type:String,require:true},
+  image:{type:String},//On stocke l'image du groupe par defaut on met une image qui est possible d'etre changer
   createdBy: { type:mongoose.Schema.Types.ObjectId, ref:'User', required:true },
   membre:[
           { type:mongoose.Schema.Types.ObjectId, ref:'User', required:true},
