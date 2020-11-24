@@ -13,7 +13,7 @@ let security = passport.authenticate('jwt', { session: false });
 
 /** FETCH ALL */
 
-router.get("/",  (req,res, next)=>{
+router.get("/", (req,res, next)=>{
 
   try {
     Notification.find((err,data)=>{

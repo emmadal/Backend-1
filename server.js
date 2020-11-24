@@ -29,11 +29,11 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use("/auth", auth)
+// app.use("/auth", auth)
 app.use("/users", users)
 app.use("/friendship", friendship)
 
-app.use("/friendships", friendship)
+// app.use("/friendships", friendship)
 
 app.use("/notifications", notification)
 

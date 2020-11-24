@@ -13,7 +13,9 @@ const MessageSchema = mongoose.Schema({
     ]
   },
   replyTO: { type: mongoose.Schema.Types.ObjectId },
-  sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  receiver: [
+    { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  ], 
   isRead: { type: Boolean, default: false },
   createDate: { type: Date, default: Date.now }
 }, { timestamps: true });
