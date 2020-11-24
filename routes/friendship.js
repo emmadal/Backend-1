@@ -1,4 +1,6 @@
 import express from 'express'
+import Friendships from '../models/Friendship.js'
+
 
 var router = express.Router()
 
