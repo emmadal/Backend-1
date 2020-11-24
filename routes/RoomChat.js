@@ -9,7 +9,7 @@ router.post('/',(req,res)=>{
     Room.create({
         name:req.body.name,
         createdBy:req.body.createdBy,
-        membre:req.body.tab// Pour pourvoir creer un groupe en ajoutant directement plusieur membre
+        membre:req.body.membre// Pour pourvoir creer un groupe en ajoutant directement plusieur membre
       
     })
     console.log(req.body.user1)
@@ -81,6 +81,16 @@ router.put('/GroupeName/',(req,res)=>{
 
 
 
+router.post('/Group/',(req,res)=>{
+    const _id = req.body.room_id
+    Room.find({_id}, (err,docs)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send(docs[0])
+        }
+    });
+})
 /* */
 
   

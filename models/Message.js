@@ -7,7 +7,7 @@ const MessageSchema = mongoose.Schema({
   rooms_id: { type: mongoose.Schema.Types.ObjectId, required: true },
   from: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   body: {
-    type: String, //{ text, gif, video, photo, ...}
+    type: { type: String }, //{ text, gif, video, photo, ...}
     content: [// contient les files id
       { type: String },
     ]
