@@ -50,9 +50,13 @@ passport.use('login',
     },
     async (username, password, done) => {
       try {
+        console.log(username)
+
         const user = await UserModel.findOne(
           username.includes("@") ? { email: username } : { phone: "+" + username }
         );
+
+        console.log(user)
 
         if (!user) {
           return done(null, false, { message: 'User not found' });
