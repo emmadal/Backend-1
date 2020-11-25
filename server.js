@@ -40,7 +40,7 @@ app.use(express.static(__dirname + '/'))
 
 // console.log('__ :>> ', __dirname + '/photos');
 
-// app.use("/auth", auth)
+app.use("/auth", auth)
 app.use("/users", users)
 app.use("/friendship", friendship)
 app.use("/roomchat", room)

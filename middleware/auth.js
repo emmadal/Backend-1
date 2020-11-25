@@ -27,12 +27,24 @@ passport.use(
 passport.use('signup',
   new localStrategy(
     {
-      usernameField: 'email',
-      passwordField: 'password'
+      usernameField: 'username',
+      passwordField: 'password',
+      passReqToCallback: true,
     },
-    async (email, password, done) => {
+    async (req, username, password, done) => {
       try {
-        const user = await UserModel.create({ email, password });
+
+        const usernameData = username.includes("@") ? { email: username } : { phone: username }
+
+        const userExists = await UserModel.findOne(usernameData);
+
+        if (userExists) {
+          return done(null, false, { message: 'User already exist' });
+        }
+
+        const userData = req.body
+
+        const user = await UserModel.create({ ...userData, ...usernameData, password });
 
         return done(null, user);
       } catch (error) {
@@ -51,7 +63,7 @@ passport.use('login',
     async (username, password, done) => {
       try {
         const user = await UserModel.findOne(
-          username.includes("@") ? { email: username } : { phone: "+" + username }
+          username.includes("@") ? { email: username } : { phone: username }
         );
 
         if (!user) {

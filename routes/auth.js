@@ -26,6 +26,9 @@ router.post('/login',
     passport.authenticate('login',
       async (err, user, info) => {
         try {
+
+          console.log("err", info)
+
           if (err || !user) {
             const error = new Error('An error occurred.');
 
@@ -39,7 +42,10 @@ router.post('/login',
               const body = { _id: user._id, email: user.email, phone: user.phone };
               const token = jwt.sign({ user: body }, 'TOP_SECRET');
 
-              return res.json({ id: user._id, ...user._doc, password: "", token });
+              return res.json({
+                message: 'Login successful',
+                user: { id: user._id, ...user._doc, password: "", token }
+              })
             }
           );
         } catch (error) {
