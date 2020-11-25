@@ -51,4 +51,6 @@ app.use("/upload", upload)
 
 app.use("/notifications", notification)
 
+console.log(new Date(), `mongoose version: ${mongoose.version}`);
+
 app.listen(port, () => console.log(`Listen on http://localhost:${port}`,))

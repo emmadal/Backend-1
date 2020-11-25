@@ -3,9 +3,14 @@ import passport from "passport"
 import bodyParser from "body-parser"
 import Message from '../models/Message.js'
 import Room from '../models/Room.js'
+import http from 'http'
+// import SocketsHandler from '../utils/socketHandler.js'
 
+// SocketsHandler.co
 
 var router = express.Router()
+
+let server = http.createServer(router)
 
 /**
  * MESSAGE SERVICE 
