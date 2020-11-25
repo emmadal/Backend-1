@@ -5,7 +5,9 @@ import auth from './routes/auth.js'
 import users from './routes/users.js'
 import friendship from './routes/friendship.js'
 import message from './routes/message.js'
+import upload from './routes/uploadhandler.js'
 import room from './routes/RoomChat.js'
+import path from 'path'
 import "./middleware/auth.js"
 import notification from './routes/notifications.js'
 
@@ -21,6 +23,9 @@ mongoose.Promise = global.Promise;
 
 const app = express()
 const port = process.env.PORT || 3000;
+var __dirname = path.resolve();
+
+
 
 app.use(express.json())
 app.use((req, res, next) => {
@@ -31,11 +36,16 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(express.static(__dirname + '/'))
+
+// console.log('__ :>> ', __dirname + '/photos');
+
 // app.use("/auth", auth)
 app.use("/users", users)
 app.use("/friendship", friendship)
 app.use("/roomchat", room)
 app.use("/message", message)
+app.use("/upload", upload)
 
 // app.use("/friendships", friendship)
 
