@@ -1,15 +1,24 @@
 import express from 'express'
 import passport from "passport"
 import jwt from "jsonwebtoken"
+import UserModel from '../models/User.js';
 
 var router = express.Router()
 
-
-router.post('/test', (req, res, next) => {
-  return res.json({
-    message: 'Signup successful',
-  });
-});
+router.get('/user',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    if (req.user && req.user._id) {
+      const user = await UserModel.findOne({ _id: req.user._id });
+      return res.json({
+        user,
+        message: 'Authenticated',
+      });
+    } else {
+      res.status(401).send({ message: 'Unauthenticated' });
+    }
+  }
+);
 
 router.post('/signup',
   passport.authenticate('signup', { session: false }),
