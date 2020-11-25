@@ -2,10 +2,16 @@ import mongoose from "mongoose";
 
 let Schema = mongoose.Schema;
 
-const FriendshipsSchema = new Schema({
-  user1: String,
-  user2: String,
-  createAt: { type: Date, default: Date.now }
-}, { timestamps: true });
+const NotificationSchema = new Schema({
+      toUser: { userID: String, id: String },
+      seen: Boolean,
+      body: String,
+      createAt: { type: Date, default: Date.now } ,
+      toUserID: String,
+      id: String,
+      metadata: { outBound: { type: Map } }, // the user infos
+      type: String,
+      title: String,
+}, { timestamps: true } );
 
-export default mongoose.model('friendships', FriendshipsSchema)
+export default mongoose.model('notification', NotificationSchema );

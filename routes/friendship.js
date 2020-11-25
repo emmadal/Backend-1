@@ -1,4 +1,7 @@
 import express from 'express'
+import passport from "passport"
+import Friendships from '../models/Friendship.js'
+
 
 var router = express.Router()
 
@@ -7,7 +10,9 @@ var router = express.Router()
  */
 
 /** FETCH ALL */
-router.get("/", (req, res) => {
+router.get("/",
+  // passport.authenticate('/', { session: false }),
+  (req, res) => {
   Friendships.find((err, data) => {
     if (err) {
       res.status(500).send(err);
@@ -18,12 +23,14 @@ router.get("/", (req, res) => {
 })
 
 /** POST A FRIENDSHIP */
-router.post("/", (req, res) => {
-  Friendships.create({
-    user1: req.body.user1,
-    user2: req.body.user2,
-    createAt: { type: Date, default: Date.now }
-  }).then(friendships => res.json(friendships));
+router.post("/", 
+  // passport.authenticate('/', { session: false }),
+    (req, res) => {
+    Friendships.create({
+      user1: req.body.user1,
+      user2: req.body.user2,
+      createAt: new Date()
+    }).then(friendships => res.json(friendships));
 })
 
 /** DELETE BY user1 AND user2 */
