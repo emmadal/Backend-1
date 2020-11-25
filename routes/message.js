@@ -16,11 +16,11 @@ var router = express.Router()
  */
 // router.use(bodyParser.json())
 
-/** FETCH ALL */
-router.get("/:user_id/:room_id",
+/** FETCH ALL PER ROOM */
+router.get("/:room_id",
   // passport.authenticate('/', { session: false }),
   (req, res) => {
-    Message.find((err, data) => {
+    Message.find({ rooms_id : req.params.room_id }, (err, data) => {
       if (err) {
         res.status(500).send(err);
       } else {
@@ -29,21 +29,18 @@ router.get("/:user_id/:room_id",
     })
   })
 
-/** POST A MESSAGE */
+/** POST A MESSAGE (send message)*/
 /**
- * @user_id user id
- * @room_id room id
- * @message_id (optional) if replyTO message 
+ * @user_id       user id
+ * @room_id       room id
+ * @message_id    (optional) if replyTO message 
  */
 
 router.post("/:user_id/:room_id/:message_id?",
   // passport.authenticate('/', { session: false }),
-  // express.json({"Content-Type": 'application/json'}),
   (req, res) => {
     
-
     var messageData = {
-      // message_id: { type: mongoose.Schema.Types.ObjectId, required: true },
       rooms_id: req.params.room_id, // require 
       from: req.params.user_id, // require
       body: {
@@ -55,10 +52,8 @@ router.post("/:user_id/:room_id/:message_id?",
         // { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
       ],
       isRead: false,
-      
       createAt: new Date()
     };
-
 
     const _id = req.params.room_id;
     Room.find({_id}, async (err,docs)=>{
@@ -71,30 +66,62 @@ router.post("/:user_id/:room_id/:message_id?",
           Message.create(messageData).then(message => res.send(message));
       }
     })
-
-    
-
-
-    // let message = new Message(messageData);
-    // // console.log('req.body :>> ', req.body);
-    // res.send(messageData);
-
   });
 
+/** UPDATE A MESSAGE CONTENT  */
+/**
+ * @user_id     user id
+ * @room_id     room id
+ * @message_id  message id
+ */
+
+router.put("/:user_id/:room_id/:message_id",
+  // passport.authenticate('/', { session: false }),
+  (req, res) => {
+    const _id = req.params.message_id;
+    Message.findByIdAndUpdate({ _id }, { body : { type : req.body.type, content : req.body.content } }, {new: true} ,(err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(201).send(data);
+        }
+      })
+    });
+
+/** UPDATE IF A MESSAGE IS READED (isread or seen) */
+/**
+ * @user_id     user id
+ * @room_id     room id
+ * @message_id  message id
+ */
+
+router.put("/:user_id/:room_id/:message_id",
+  // passport.authenticate('/', { session: false }),
+  (req, res) => {
+    const _id = req.params.message_id;
+    Message.findByIdAndUpdate({ _id }, { isRead : req.body.isRead }, {new: true} ,(err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(201).send(data);
+        }
+      })
+    });
+
 /** DELETE BY message id */
-router.get("/:message_id", (req, res) => {
-  Message.deleteOne({ '_id': req.params.message_id }, (err, data) => {
+router.post("/:user_id/:message_id", (req, res) => {
+  Message.deleteOne({ '_id': req.params.message_id, 'from': req.params.user_id }, (err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      res.status(201).send(data);
+      res.status(201).send("success");
     }
   });
 })
 
 /** UPDATE BY message id */
-router.get("/:message_id", (req, res) => {
-  Message.deleteOne({ '_id': req.params.message_id }, (err, data) => {
+router.get("/:user_id/:message_id", (req, res) => {
+  Message.deleteOne({ '_id': req.params.message_id, 'from': req.params.user_id  }, (err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -102,28 +129,5 @@ router.get("/:message_id", (req, res) => {
     }
   });
 })
-
-// /** SEARCH BY  */
-// router.get("/:", (req, res) => {
-//   Friendships.findOne({ '': req.params., '': req.params. }, (err, data) => {
-//     if (err) {
-//       res.status(500).send(err);
-//     } else {
-//       res.status(201).send(data);
-//     }
-//   });
-// })
-
-
-// /** SEARCH BY user */
-// router.get("/:user", (req, res) => {
-//   Friendships.find({ 'user1': req.params.user }, (err, data) => {
-//     if (err) {
-//       res.status(500).send(err);
-//     } else {
-//       res.status(201).send(data);
-//     }
-//   });
-// })
 
 export default router
