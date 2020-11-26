@@ -36,8 +36,6 @@ router.post('/login',
       async (err, user, info) => {
         try {
 
-          console.log("err", info)
-
           if (err || !user) {
             const error = new Error('An error occurred.');
 

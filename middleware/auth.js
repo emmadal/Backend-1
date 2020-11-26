@@ -78,7 +78,6 @@ passport.use('login',
 
         return done(null, user, { message: 'Logged in Successfully' });
       } catch (error) {
-        console.log("error", error)
         return done(error);
       }
     }
