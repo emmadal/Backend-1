@@ -9,6 +9,8 @@
 /videos
 /audios
 /autres
+/documents
+/utils
 
 # testing
 /coverage
