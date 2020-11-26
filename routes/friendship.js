@@ -1,7 +1,5 @@
-import express from 'express'
-import passport from "passport"
-import Friendships from '../models/Friendship.js'
-
+const express = require('express')
+const Friendships = require('../models/Friendship.js')
 
 var router = express.Router()
 
@@ -67,4 +65,4 @@ router.get("/:user", (req, res) => {
   });
 })
 
-export default router
+module.exports = router

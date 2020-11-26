@@ -1,7 +1,7 @@
-import express from 'express'
-import passport from 'passport'
-import { handleError } from "../helpers.js"
-import User from '../models/User.js'
+const express = require('express')
+const passport = require('passport')
+const handleError = require('../helpers.js')
+const User = require('../models/User.js')
 
 var router = express.Router()
 
@@ -61,4 +61,4 @@ router.delete('/:id', function (req, res) {
   }
 })
 
-export default router
+module.exports = router

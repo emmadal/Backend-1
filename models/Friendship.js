@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose')
 
 let Schema = mongoose.Schema;
 
@@ -8,4 +8,4 @@ const FriendshipsSchema = new Schema({
   createAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-export default mongoose.model('friendships', FriendshipsSchema)
+module.exports = mongoose.model('friendships', FriendshipsSchema)

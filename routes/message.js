@@ -1,9 +1,7 @@
-import express from 'express'
-import passport from "passport"
-import bodyParser from "body-parser"
-import Message from '../models/Message.js'
-import Room from '../models/Room.js'
-import http from 'http'
+const express = require('express')
+const Message = require("../models/Message.js");
+const Room = require("../models/Room.js");
+const http = require('http')
 // import SocketsHandler from '../utils/socketHandler.js'
 
 // SocketsHandler.co
@@ -139,5 +137,4 @@ router.get("/:user_id/:message_id", (req, res) => {
   });
 })
 
-
-export default router
+module.exports = router

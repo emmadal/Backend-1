@@ -1,8 +1,8 @@
-import express from 'express'
-import bodyParser from "body-parser"
-import multer from "multer"
-import path from "path"
-import crypto from "crypto"
+const express = require('express')
+const bodyParser = require ("body-parser")
+const multer = require("multer")
+const path = require("path")
+const crypto = require("crypto")
 // const app = express()
 
 var router = express.Router()
@@ -66,4 +66,4 @@ router.post('/many', upload.array('files', 12), (req, res, next) => {
 
 })
 
-export default router
+module.exports = router
