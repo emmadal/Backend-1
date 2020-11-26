@@ -1,15 +1,15 @@
-import express from 'express'
-import bodyParser from "body-parser"
-import mongoose from "mongoose"
-import auth from './routes/auth.js'
-import users from './routes/users.js'
-import friendship from './routes/friendship.js'
-import message from './routes/message.js'
-import upload from './routes/uploadhandler.js'
-import room from './routes/RoomChat.js'
-import path from 'path'
-import "./middleware/auth.js"
-import notification from './routes/notifications.js'
+const express = require('express')
+const bodyParser = require("body-parser")
+const mongoose = require("mongoose")
+const auth = require('./routes/auth.js')
+const users = require('./routes/users.js')
+const friendship = require('./routes/friendship.js')
+const room = require('./routes/RoomChat.js')
+const upload = require("./routes/uploadhandler.js");
+const message = require("./routes/message.js");
+const path = require('path')
+const notification = require("./routes/notifications.js");
+require("./middleware/auth.js");
 
 const dbUrl = "mongodb+srv://Wakandha:Wakandha2020@cluster0.osxre.mongodb.net/wakandha?retryWrites=true&w=majority"
 
@@ -22,7 +22,7 @@ mongoose.connection.on('error', error => console.log(error));
 mongoose.Promise = global.Promise;
 
 const app = express()
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 var __dirname = path.resolve();
 
 

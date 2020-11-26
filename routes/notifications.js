@@ -1,7 +1,7 @@
-import express from 'express'
-import { handleError } from "../helpers.js"
-import Notification from '../models/Notification.js'
-import passport from 'passport'
+const express = require('express')
+const handleError = require('../helpers.js')
+const Notification = require('../models/Notification.js')
+const passport = require('passport')
 
 var router = express.Router()
 
@@ -72,4 +72,4 @@ router.get("/", (req,res, next)=>{
 //   });
 // })
 
-export default router
+module.exports = router

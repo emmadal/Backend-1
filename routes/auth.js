@@ -1,7 +1,7 @@
-import express from 'express'
-import passport from "passport"
-import jwt from "jsonwebtoken"
-import UserModel from '../models/User.js';
+const express = require('express')
+const passport = require("passport")
+const jwt = require ("jsonwebtoken")
+const UserModel = require('../models/User.js')
 
 var router = express.Router()
 
@@ -63,4 +63,4 @@ router.post('/login',
   }
 );
 
-export default router
+module.exports = router

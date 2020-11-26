@@ -1,5 +1,5 @@
-import express from 'express'
-import Room from "../models/Room.js"
+const express = require('express')
+const Room = require("../models/Room.js")
 // import mongoose from 'mongoose'
 
 var router = express.Router()
@@ -108,5 +108,4 @@ router.get("/", (req, res) => {
     })
   })
   
-
-export default router
+module.exports = router

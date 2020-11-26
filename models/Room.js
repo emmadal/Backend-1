@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose')
 
 let Schema = mongoose.Schema;
 
@@ -14,4 +14,4 @@ const RoomSchema = mongoose.Schema({
   createDate: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-export default mongoose.model('room', RoomSchema) 
+module.exports = mongoose.model('room', RoomSchema) 
