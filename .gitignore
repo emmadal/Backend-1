@@ -5,11 +5,6 @@
 /.pnp
 .pnp.js
 /config
-/photos
-/videos
-/audios
-/autres
-/documents
 /utils
 
 # testing
